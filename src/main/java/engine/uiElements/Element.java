@@ -1,6 +1,9 @@
 package engine.uiElements;
 
 import engine.constraints.Constraint;
+import engine.constraints.Margin;
+import engine.constraints.dimensions.ConstraintHeightFullscreen;
+import engine.constraints.dimensions.ConstraintWidthFullscreen;
 import engine.events.KeyHandler;
 import engine.modifier.Modifier;
 
@@ -77,6 +80,21 @@ public class Element {
 
         int x = constraint.getXConstraint().positionX(width, height, w, h);
         int y = constraint.getYConstraint().positionY(width, height, w, h);
+
+        Margin margin = constraint.getMargin();
+        y += margin.getMarginUp();
+        h -= margin.getMarginUp();
+        h -= margin.getMarginDown();
+        if (constraint.getHeightConstraint() instanceof ConstraintHeightFullscreen) {
+            h -= margin.getMarginDown();
+        }
+
+        x += margin.getMarginLeft();
+        w -= margin.getMarginLeft();
+        w -= margin.getMarginRight();
+        if (constraint.getWidthConstraint() instanceof ConstraintWidthFullscreen) {
+            w -= margin.getMarginRight();
+        }
 
         elementData.x = x;
         elementData.y = y;

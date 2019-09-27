@@ -13,6 +13,8 @@ public class Constraint {
     private XConstraint xConstraint = new XConstraint();
     private YConstraint yConstraint = new YConstraint();
 
+    private Margin margin = new Margin();
+
     public void setWidthConstraint(WidthConstraint widthConstraint) {
         this.widthConstraint = widthConstraint;
     }
@@ -21,12 +23,16 @@ public class Constraint {
         this.heightConstraint = heightConstraint;
     }
 
-    public void setxConstraint(XConstraint xConstraint) {
+    public void setXConstraint(XConstraint xConstraint) {
         this.xConstraint = xConstraint;
     }
 
-    public void setyConstraint(YConstraint yConstraint) {
+    public void setYConstraint(YConstraint yConstraint) {
         this.yConstraint = yConstraint;
+    }
+
+    public void setMargin(Margin margin) {
+        this.margin = margin;
     }
 
     public WidthConstraint getWidthConstraint() {
@@ -43,5 +49,9 @@ public class Constraint {
 
     public YConstraint getYConstraint() {
         return yConstraint;
+    }
+
+    public Margin getMargin() {
+        return margin;
     }
 }

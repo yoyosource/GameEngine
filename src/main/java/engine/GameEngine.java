@@ -50,7 +50,9 @@ public class GameEngine implements Runnable {
         frame.setVisible(true);
         frame.setFocusTraversalKeysEnabled(false);
 
-        frame.add(renderer);
+        System.out.println(frame.getWidth() + " " + frame.getHeight());
+        System.out.println(frame.getContentPane().getWidth() + " " + frame.getContentPane().getHeight());
+        frame.setContentPane(renderer);
         frame.validate();
 
         frame.addKeyListener(keyHandler);
@@ -64,8 +66,16 @@ public class GameEngine implements Runnable {
                 if (frame.getHeight() < minHeight) {
                     frame.setSize(frame.getWidth(), minHeight);
                 }
+            }
+        });
 
-                renderer.setBounds(0, 0, frame.getWidth(), frame.getHeight());
+        renderer.addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                int height = e.getComponent().getBounds().height;
+                int width = e.getComponent().getBounds().height;
+
+                renderer.setBounds(0, 0, width, height);
                 renderer.repaint();
                 super.componentResized(e);
             }
@@ -104,7 +114,6 @@ public class GameEngine implements Runnable {
                 keyHandler.update();
                 renderer.update();
             }
-            renderer.setBounds(0, 0, frame.getWidth(), frame.getHeight());
             renderer.repaint();
             fps++;
             if (System.currentTimeMillis() - time > 1000) {
