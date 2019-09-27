@@ -5,7 +5,7 @@ import engine.constraints.Constraint;
 import engine.constraints.Margin;
 import engine.constraints.dimensions.*;
 import engine.constraints.locations.*;
-import engine.uiElements.elements.ERectangle;
+import engine.ui.elements.ERectangle;
 
 import java.awt.*;
 

@@ -1,7 +1,7 @@
-package engine.uiElements.elements;
+package engine.ui.elements;
 
-import engine.uiElements.Element;
-import engine.uiElements.ElementData;
+import engine.ui.Element;
+import engine.ui.ElementData;
 
 import java.awt.*;
 
@@ -23,7 +23,7 @@ public class ETriangle extends Element {
         ElementData elementData = getData(width, height);
 
         g.setColor(getColor());
-        Polygon p = createPolygon(new int[]{elementData.x, elementData.x + elementData.width, elementData.x}, new int[]{elementData.y, elementData.y + elementData.height, elementData.y});
+        Polygon p = createPolygon(new int[]{elementData.x, elementData.x + elementData.width, elementData.x}, new int[]{elementData.y, elementData.y, elementData.y + elementData.height});
         if (!filled) {
             g.drawPolygon(p);
         } else {

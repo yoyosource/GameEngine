@@ -2,14 +2,13 @@ package engine;
 
 import engine.events.KeyHandler;
 import engine.modifier.Modifier;
-import engine.uiElements.Element;
+import engine.ui.Element;
 
 import javax.swing.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.List;
 
 public class GameEngine implements Runnable {
 

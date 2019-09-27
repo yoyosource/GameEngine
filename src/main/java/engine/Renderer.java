@@ -2,15 +2,12 @@ package engine;
 
 import engine.events.KeyHandler;
 import engine.modifier.Modifier;
-import engine.uiElements.Element;
+import engine.ui.Element;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Queue;
 
 public class Renderer extends JComponent {
 

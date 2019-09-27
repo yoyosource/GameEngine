@@ -1,7 +1,7 @@
-package engine.uiElements.elements;
+package engine.ui.elements;
 
-import engine.uiElements.Element;
-import engine.uiElements.ElementData;
+import engine.ui.Element;
+import engine.ui.ElementData;
 
 import java.awt.*;
 

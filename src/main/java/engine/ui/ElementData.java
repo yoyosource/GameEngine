@@ -1,4 +1,4 @@
-package engine.uiElements;
+package engine.ui;
 
 public class ElementData {
 

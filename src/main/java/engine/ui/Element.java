@@ -1,4 +1,4 @@
-package engine.uiElements;
+package engine.ui;
 
 import engine.constraints.Constraint;
 import engine.constraints.Margin;
