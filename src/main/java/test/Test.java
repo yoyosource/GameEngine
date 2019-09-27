@@ -5,10 +5,6 @@ import engine.constraints.Constraint;
 import engine.constraints.Margin;
 import engine.constraints.dimensions.*;
 import engine.constraints.locations.*;
-import engine.modifier.ModifierRotateDynamic;
-import engine.modifier.ModifierTranslateCenter;
-import engine.modifier.ModifierTranslateMovements;
-import engine.uiElements.elements.EBorderedRectangle;
 import engine.uiElements.elements.ERectangle;
 
 import java.awt.*;
@@ -16,8 +12,9 @@ import java.awt.*;
 public class Test {
 
     public static void main(String[] args) {
-        GameEngine gameEngine = new GameEngine("Test", 100, 100);
+        GameEngine gameEngine = new GameEngine("Test", Toolkit.getDefaultToolkit().getScreenSize().width / 4 * 3, Toolkit.getDefaultToolkit().getScreenSize().height / 4 * 3);
         gameEngine.setUpdateTime(120);
+        gameEngine.setMinSize(Toolkit.getDefaultToolkit().getScreenSize().width / 4 * 3, Toolkit.getDefaultToolkit().getScreenSize().height / 4 * 3);
 
         ERectangle sideBarLeft = new ERectangle(new Color(100, 100, 100, 100));
         Constraint sideBarLeftConstraint = new Constraint();
@@ -27,9 +24,8 @@ public class Test {
         sideBarLeftConstraint.setXConstraint(new ConstraintXFixed(10));
         sideBarLeftConstraint.setYConstraint(new ConstraintYFixed(10));
         sideBarLeftConstraint.setHeightConstraint(new ConstraintHeightFullscreen());
-        sideBarLeftConstraint.setWidthConstraint(new ConstraintWidthPercent(0.3));
+        sideBarLeftConstraint.setWidthConstraint(new ConstraintWidthPercent(0.225));
         sideBarLeft.setConstraints(sideBarLeftConstraint);
-
         gameEngine.addElement(sideBarLeft);
 
         System.out.println(gameEngine.elementCount());

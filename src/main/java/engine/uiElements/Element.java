@@ -89,12 +89,16 @@ public class Element {
             h -= margin.getMarginDown();
         }
 
+        y += constraint.getOffset().getOffsetUp();
+
         x += margin.getMarginLeft();
         w -= margin.getMarginLeft();
         w -= margin.getMarginRight();
         if (constraint.getWidthConstraint() instanceof ConstraintWidthFullscreen) {
             w -= margin.getMarginRight();
         }
+
+        x += constraint.getOffset().getOffsetLeft();
 
         elementData.x = x;
         elementData.y = y;

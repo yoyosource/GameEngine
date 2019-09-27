@@ -52,6 +52,7 @@ public class GameEngine implements Runnable {
 
         System.out.println(frame.getWidth() + " " + frame.getHeight());
         System.out.println(frame.getContentPane().getWidth() + " " + frame.getContentPane().getHeight());
+        renderer.setBounds(0, 0, frame.getContentPane().getWidth(), frame.getContentPane().getHeight());
         frame.setContentPane(renderer);
         frame.validate();
 
@@ -72,8 +73,8 @@ public class GameEngine implements Runnable {
         renderer.addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
-                int height = e.getComponent().getBounds().height;
-                int width = e.getComponent().getBounds().height;
+                int height = e.getComponent().getHeight();
+                int width = e.getComponent().getWidth();
 
                 renderer.setBounds(0, 0, width, height);
                 renderer.repaint();
@@ -136,9 +137,20 @@ public class GameEngine implements Runnable {
 
     public void addElement(Element element)  {
         renderer.addElement(element);
+        renderer.repaint();
     }
 
-    public void setSize(int minWidth, int minHeight) {
+    public void setSize(int width, int height) {
+        frame.setSize(width, height);
+        if (frame.getWidth() < minWidth) {
+            frame.setSize(minWidth, frame.getHeight());
+        }
+        if (frame.getHeight() < minHeight) {
+            frame.setSize(frame.getWidth(), minHeight);
+        }
+    }
+
+    public void setMinSize(int minWidth, int minHeight) {
         this.minWidth = minWidth;
         this.minHeight = minHeight;
         if (frame.getWidth() < minWidth) {

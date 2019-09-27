@@ -14,6 +14,7 @@ public class Constraint {
     private YConstraint yConstraint = new YConstraint();
 
     private Margin margin = new Margin();
+    private Offset offset = new Offset();
 
     public void setWidthConstraint(WidthConstraint widthConstraint) {
         this.widthConstraint = widthConstraint;
@@ -35,6 +36,10 @@ public class Constraint {
         this.margin = margin;
     }
 
+    public void setOffset(Offset offset) {
+        this.offset = offset;
+    }
+
     public WidthConstraint getWidthConstraint() {
         return widthConstraint;
     }
@@ -53,5 +58,9 @@ public class Constraint {
 
     public Margin getMargin() {
         return margin;
+    }
+
+    public Offset getOffset() {
+        return offset;
     }
 }
