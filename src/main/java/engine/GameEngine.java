@@ -78,7 +78,6 @@ public class GameEngine implements Runnable {
 
                 renderer.setBounds(0, 0, width, height);
                 renderer.repaint();
-                super.componentResized(e);
             }
         });
 
