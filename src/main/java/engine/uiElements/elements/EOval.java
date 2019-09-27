@@ -7,8 +7,15 @@ import java.awt.*;
 
 public class EOval extends Element {
 
+    private boolean filled = true;
+
     public EOval(Color color) {
         setColor(color);
+    }
+
+    public EOval(Color color, boolean filled) {
+        setColor(color);
+        this.filled = filled;
     }
 
     @Override
@@ -16,7 +23,11 @@ public class EOval extends Element {
         ElementData elementData = getData(width, height);
 
         g.setColor(getColor());
-        g.drawOval(elementData.x, elementData.y, elementData.width, elementData.height);
+        if (!filled) {
+            g.drawOval(elementData.x, elementData.y, elementData.width, elementData.height);
+        } else {
+            g.fillOval(elementData.x, elementData.y, elementData.width, elementData.height);
+        }
     }
 
 }

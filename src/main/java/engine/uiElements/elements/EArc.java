@@ -10,8 +10,15 @@ public class EArc extends Element {
     private int startAngle = 0;
     private int endAngle = 360;
 
+    private boolean filled = true;
+
     public EArc(Color color) {
         setColor(color);
+    }
+
+    public EArc(Color color, boolean filled) {
+        setColor(color);
+        this.filled = filled;
     }
 
     public EArc(Color color, int startAngle, int endAngle) {
@@ -20,11 +27,22 @@ public class EArc extends Element {
         this.endAngle = endAngle;
     }
 
+    public EArc(Color color, int startAngle, int endAngle, boolean filled) {
+        setColor(color);
+        this.startAngle = startAngle;
+        this.endAngle = endAngle;
+        this.filled = filled;
+    }
+
     @Override
     public void draw(Graphics2D g, int width, int height, int xOffset, int yOffset) {
         ElementData elementData = getData(width, height);
 
         g.setColor(getColor());
-        g.drawArc(elementData.x, elementData.y, elementData.width, elementData.height, startAngle, endAngle);
+        if (!filled) {
+            g.drawArc(elementData.x, elementData.y, elementData.width, elementData.height, startAngle, endAngle);
+        } else {
+            g.fillArc(elementData.x, elementData.y, elementData.width, elementData.height, startAngle, endAngle);
+        }
     }
 }

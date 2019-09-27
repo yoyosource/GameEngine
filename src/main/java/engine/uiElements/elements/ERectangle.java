@@ -26,7 +26,6 @@ public class ERectangle extends Element {
         if (!filled) {
             g.drawRect(elementData.x, elementData.y, elementData.width, elementData.height);
         } else {
-            //System.out.println(elementData);
             g.fillRect(elementData.x, elementData.y, elementData.width, elementData.height);
         }
     }
