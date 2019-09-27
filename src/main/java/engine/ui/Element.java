@@ -5,7 +5,7 @@ import engine.constraints.Margin;
 import engine.constraints.dimensions.ConstraintHeightFullscreen;
 import engine.constraints.dimensions.ConstraintWidthFullscreen;
 import engine.events.KeyHandler;
-import engine.modifier.Modifier;
+import engine.uiBehavior.Modifier;
 
 import java.awt.*;
 import java.util.ArrayList;

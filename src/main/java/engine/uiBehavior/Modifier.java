@@ -1,4 +1,4 @@
-package engine.modifier;
+package engine.uiBehavior;
 
 import engine.events.KeyHandler;
 

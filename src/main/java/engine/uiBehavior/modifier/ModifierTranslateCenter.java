@@ -1,4 +1,6 @@
-package engine.modifier;
+package engine.uiBehavior.modifier;
+
+import engine.uiBehavior.Modifier;
 
 import java.awt.*;
 

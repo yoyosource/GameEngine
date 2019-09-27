@@ -1,7 +1,7 @@
 package engine;
 
 import engine.events.KeyHandler;
-import engine.modifier.Modifier;
+import engine.uiBehavior.Modifier;
 import engine.ui.Element;
 
 import javax.swing.*;

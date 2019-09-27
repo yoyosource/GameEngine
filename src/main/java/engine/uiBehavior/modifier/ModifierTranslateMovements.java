@@ -1,6 +1,7 @@
-package engine.modifier;
+package engine.uiBehavior.modifier;
 
 import engine.events.KeyHandler;
+import engine.uiBehavior.Modifier;
 
 import java.awt.*;
 

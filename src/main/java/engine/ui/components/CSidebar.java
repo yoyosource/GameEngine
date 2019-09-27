@@ -22,7 +22,11 @@ public class CSidebar {
     private double width = 0.0;
     private boolean isFixed = false;
 
+    private Color color;
+
     public CSidebar(int top, int bottom, int side, int width) {
+        this.color = new Color(100, 100, 100, 100);
+
         this.top = top;
         this.bottom = bottom;
         this.side = side;
@@ -30,7 +34,19 @@ public class CSidebar {
         this.width = width;
     }
 
-    public CSidebar(int top, int bottom, int side, int width, boolean fixed) {
+    public CSidebar(Color color, int top, int bottom, int side, int width) {
+        this.color = color;
+
+        this.top = top;
+        this.bottom = bottom;
+        this.side = side;
+
+        this.width = width;
+    }
+
+    public CSidebar(Color color, int top, int bottom, int side, int width, boolean fixed) {
+        this.color = color;
+
         this.top = top;
         this.bottom = bottom;
         this.side = side;
@@ -40,6 +56,8 @@ public class CSidebar {
     }
 
     public CSidebar(int top, int bottom, int side, double width) {
+        this.color = new Color(100, 100, 100, 100);
+
         this.top = top;
         this.bottom = bottom;
         this.side = side;
@@ -47,7 +65,19 @@ public class CSidebar {
         this.width = width;
     }
 
-    public CSidebar(int top, int bottom, int side, double width, boolean fixed) {
+    public CSidebar(Color color, int top, int bottom, int side, double width) {
+        this.color = color;
+
+        this.top = top;
+        this.bottom = bottom;
+        this.side = side;
+
+        this.width = width;
+    }
+
+    public CSidebar(Color color, int top, int bottom, int side, double width, boolean fixed) {
+        this.color = color;
+
         this.top = top;
         this.bottom = bottom;
         this.side = side;
@@ -57,7 +87,7 @@ public class CSidebar {
     }
 
     public Element getSidebarRight() {
-        ERectangle sideBarRight = new ERectangle(new Color(100, 100, 100, 100));
+        ERectangle sideBarRight = new ERectangle(color);
         Constraint sideBarRightConstraint = new Constraint();
         Margin sideBarMargin = new Margin();
         sideBarMargin.setMarginDown(bottom);
@@ -75,7 +105,7 @@ public class CSidebar {
     }
 
     public Element getSidebarLeft() {
-        ERectangle sideBarLeft = new ERectangle(new Color(100, 100, 100, 100));
+        ERectangle sideBarLeft = new ERectangle(color);
         Constraint sideBarLeftConstraint = new Constraint();
         Margin sideBarMargin = new Margin();
         sideBarMargin.setMarginDown(bottom);
@@ -90,6 +120,10 @@ public class CSidebar {
         }
         sideBarLeft.setConstraints(sideBarLeftConstraint);
         return sideBarLeft;
+    }
+
+    public static Color getDefault() {
+        return new Color(100, 100, 100, 100);
     }
 
 }
