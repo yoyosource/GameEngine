@@ -68,8 +68,8 @@ public class GameEngine implements Runnable {
         frame.validate();
 
         frame.addKeyListener(keyHandler);
-        frame.addMouseListener(mouseHandler);
         frame.addMouseMotionListener(mouseMotionHandler);
+        frame.addMouseListener(mouseHandler);
         frame.addMouseWheelListener(mouseWheel);
 
         frame.addComponentListener(new ComponentAdapter() {
@@ -114,6 +114,7 @@ public class GameEngine implements Runnable {
 
     private void render() {
         Thread t = new Thread(this);
+        t.setName("GameEngine-" + frame.getTitle());
         t.start();
     }
 

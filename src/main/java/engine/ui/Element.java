@@ -22,6 +22,7 @@ public class Element {
     private Color nColor;
     private int fade = 0;
     private int maxFade = 0;
+    private int fadeTime = 0;
 
     private ElementData elementData = new ElementData();
 
@@ -74,20 +75,26 @@ public class Element {
     }
 
     protected void setColor(Graphics2D g) {
-        if (maxFade > 0 && nColor != null) {
-            Color nColor;
-            try {
-                nColor = new Color(this.nColor.getRed(), this.nColor.getGreen(), this.nColor.getBlue(), this. nColor.getAlpha());
-            } catch (NullPointerException e) {
-                g.setColor(color);
-                return;
-            }
-            double changeR = (nColor.getRed() - color.getRed()) / maxFade * fade;
-            double changeG = (nColor.getGreen() - color.getGreen()) / maxFade * fade;
-            double changeB = (nColor.getBlue() - color.getBlue()) / maxFade * fade;
-            double changeA = (nColor.getAlpha() - color.getAlpha()) / maxFade * fade;
+        /*
+        !!! IMPORTANT !!!
+        fixing synchronization issues accessing the variable maxFade and nColor.
+         */
+        int maxFadeLocal = this.maxFade;
+        Color nColorLocal = null;
 
-            int R = color.getRed() + (int)changeR;
+        synchronized (this) {
+            if (maxFadeLocal > 0 && nColor != null) {
+                nColorLocal = new Color(nColor.getRed(), nColor.getGreen(), nColor.getBlue(), nColor.getAlpha());
+            }
+        }
+
+        if (maxFadeLocal > 0 && nColorLocal != null) {
+            double changeR = (nColorLocal.getRed() - color.getRed()) / maxFadeLocal * fade;
+            double changeG = (nColorLocal.getGreen() - color.getGreen()) / maxFadeLocal * fade;
+            double changeB = (nColorLocal.getBlue() - color.getBlue()) / maxFadeLocal * fade;
+            double changeA = (nColorLocal.getAlpha() - color.getAlpha()) / maxFadeLocal * fade;
+
+            int R = color.getRed() + (int) changeR;
             if (R > 255) {
                 R = 255;
             }
@@ -95,7 +102,7 @@ public class Element {
                 R = 0;
             }
 
-            int G = color.getGreen() + (int)changeG;
+            int G = color.getGreen() + (int) changeG;
             if (G > 255) {
                 G = 255;
             }
@@ -103,7 +110,7 @@ public class Element {
                 G = 0;
             }
 
-            int B = color.getBlue() + (int)changeB;
+            int B = color.getBlue() + (int) changeB;
             if (B > 255) {
                 B = 255;
             }
@@ -111,7 +118,7 @@ public class Element {
                 B = 0;
             }
 
-            int A = color.getAlpha() + (int)changeA;
+            int A = color.getAlpha() + (int) changeA;
             if (A > 255) {
                 A = 255;
             }
@@ -200,29 +207,32 @@ public class Element {
     }
 
     public void setnColor(Color color) {
-        nColor = color;
+        synchronized (this) {
+            nColor = color;
+        }
     }
 
-    public void setMaxFade(int maxFade) {
-        this.maxFade = maxFade;
+    public void setMaxFade(int fadeTime) {
+        this.fadeTime = fadeTime;
     }
 
     public void update(KeyHandler keyHandler, MouseHandler mouseHandler, MouseMotionHandler mouseMotionHandler, MouseWheel mouseWheel) {
         for (Modifier modifier : modifiers) {
             modifier.update(keyHandler);
         }
-        nColor = null;
-        maxFade = 0;
+        setnColor(null);
+        setMaxFade(0);
         for (Event event : events) {
             if (event.isEventToggle(keyHandler, mouseHandler, mouseMotionHandler, mouseWheel)) {
                 event.run();
             }
         }
-        if (maxFade == 0) {
+        if (fadeTime == 0) {
             fade = 0;
         } else if (fade < maxFade) {
             fade++;
         }
+        maxFade = fadeTime;
         if (!childs.isEmpty()) {
             for (Element element : childs) {
                 element.update(keyHandler, mouseHandler, mouseMotionHandler, mouseWheel);

@@ -35,7 +35,7 @@ public class Test {
         gameEngine.addElement(sideBarLeft);
 
         EventHover eventHover = new EventHover();
-        eventHover.addAction(new ActionAlphaFade(200));
+        eventHover.addAction(new ActionAlphaFade(200, 100));
         sideBarLeft.addEvent(eventHover);
 
         System.out.println(gameEngine.elementCount());
