@@ -1,10 +1,9 @@
 package engine.events;
 
-import engine.Renderer;
-
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class KeyHandler implements KeyListener {
@@ -14,7 +13,7 @@ public class KeyHandler implements KeyListener {
 
     public void update() {
         lastChars.clear();
-        lastChars.addAll(currentChars);
+        Collections.addAll(lastChars, currentChars.toArray(new Character[0]));
     }
 
     @Override
@@ -36,12 +35,28 @@ public class KeyHandler implements KeyListener {
         }
     }
 
+    public boolean hasKeyDown() {
+        return !currentChars.isEmpty();
+    }
+
+    public boolean hasKeyUp() {
+        return currentChars.isEmpty();
+    }
+
     public boolean isKeyDown(char c) {
         return currentChars.contains(c);
     }
 
     public boolean isKeyUp(char c) {
         return !currentChars.contains(c);
+    }
+
+    public boolean hasKeyTypedUp() {
+        return !lastChars.isEmpty() && currentChars.isEmpty();
+    }
+
+    public boolean hasKeyTypedDown() {
+        return lastChars.isEmpty() && !currentChars.isEmpty();
     }
 
     public boolean isKeyTypedUp(char c) {
@@ -52,4 +67,11 @@ public class KeyHandler implements KeyListener {
         return !lastChars.contains(c) && currentChars.contains(c);
     }
 
+    @Override
+    public String toString() {
+        return "KeyHandler{" +
+                "lastChars=" + lastChars +
+                ", currentChars=" + currentChars +
+                '}';
+    }
 }

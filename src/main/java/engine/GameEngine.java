@@ -1,6 +1,10 @@
 package engine;
 
 import engine.events.KeyHandler;
+import engine.events.MouseHandler;
+import engine.events.MouseMotionHandler;
+import engine.events.MouseWheel;
+import engine.uiBehavior.Action;
 import engine.uiBehavior.Modifier;
 import engine.ui.Element;
 
@@ -27,6 +31,11 @@ public class GameEngine implements Runnable {
     private double updateTime = 0;
 
     private KeyHandler keyHandler;
+    private MouseHandler mouseHandler;
+    private MouseMotionHandler mouseMotionHandler;
+    private MouseWheel mouseWheel;
+
+    private Action gameTickFunction = new Action();
 
     public GameEngine(String title, int width, int height) {
         this.title = title;
@@ -39,7 +48,10 @@ public class GameEngine implements Runnable {
 
     private void createWindow() {
         keyHandler = new KeyHandler();
-        renderer = new Renderer(keyHandler);
+        mouseHandler = new MouseHandler();
+        mouseMotionHandler = new MouseMotionHandler();
+        mouseWheel = new MouseWheel();
+        renderer = new Renderer(keyHandler, mouseHandler, mouseMotionHandler, mouseWheel);
 
         frame = new JFrame(title);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -56,6 +68,9 @@ public class GameEngine implements Runnable {
         frame.validate();
 
         frame.addKeyListener(keyHandler);
+        frame.addMouseListener(mouseHandler);
+        frame.addMouseMotionListener(mouseMotionHandler);
+        frame.addMouseWheelListener(mouseWheel);
 
         frame.addComponentListener(new ComponentAdapter() {
             @Override
@@ -110,8 +125,10 @@ public class GameEngine implements Runnable {
         while (rendering) {
             if (System.currentTimeMillis() - t > updateTime) {
                 t = System.currentTimeMillis();
-                keyHandler.update();
+                gameTickFunction.run();
                 renderer.update();
+                keyHandler.update();
+                mouseWheel.update();
             }
             renderer.repaint();
             fps++;
@@ -197,6 +214,14 @@ public class GameEngine implements Runnable {
 
     public int elementCount() {
         return renderer.elementCount();
+    }
+
+    public void setResizable(boolean resizable) {
+        frame.setResizable(resizable);
+    }
+
+    public void setGameTickFunction(Action gameTickFunction) {
+        this.gameTickFunction = gameTickFunction;
     }
 
 }

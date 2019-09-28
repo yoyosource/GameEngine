@@ -5,6 +5,10 @@ import engine.constraints.Margin;
 import engine.constraints.dimensions.ConstraintHeightFullscreen;
 import engine.constraints.dimensions.ConstraintWidthFullscreen;
 import engine.events.KeyHandler;
+import engine.events.MouseHandler;
+import engine.events.MouseMotionHandler;
+import engine.events.MouseWheel;
+import engine.uiBehavior.Event;
 import engine.uiBehavior.Modifier;
 
 import java.awt.*;
@@ -16,7 +20,10 @@ public class Element {
     private Constraint constraint = new Constraint();
     private Color color;
 
+    private ElementData elementData = new ElementData();
+
     private List<Modifier> modifiers = new ArrayList<>();
+    private List<Event> events = new ArrayList<>();
 
     private List<Element> childs = new ArrayList<>();
 
@@ -52,6 +59,11 @@ public class Element {
 
     public void addModifier(Modifier modifier) {
         modifiers.add(modifier);
+    }
+
+    public void addEvent(Event event) {
+        events.add(event);
+        event.setElement(this);
     }
 
     protected Color getColor() {
@@ -105,6 +117,12 @@ public class Element {
         elementData.width = w;
         elementData.height = h;
 
+        this.elementData = elementData;
+
+        return elementData;
+    }
+
+    public ElementData getData() {
         return elementData;
     }
 
@@ -122,13 +140,18 @@ public class Element {
         }
     }
 
-    public void update(KeyHandler keyHandler) {
+    public void update(KeyHandler keyHandler, MouseHandler mouseHandler, MouseMotionHandler mouseMotionHandler, MouseWheel mouseWheel) {
         for (Modifier modifier : modifiers) {
             modifier.update(keyHandler);
         }
+        for (Event event : events) {
+            if (event.isEventToggle(keyHandler, mouseHandler, mouseMotionHandler, mouseWheel)) {
+                event.run();
+            }
+        }
         if (!childs.isEmpty()) {
             for (Element element : childs) {
-                element.update(keyHandler);
+                element.update(keyHandler, mouseHandler, mouseMotionHandler, mouseWheel);
             }
         }
     }

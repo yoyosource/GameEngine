@@ -1,6 +1,9 @@
 package engine;
 
 import engine.events.KeyHandler;
+import engine.events.MouseHandler;
+import engine.events.MouseMotionHandler;
+import engine.events.MouseWheel;
 import engine.uiBehavior.Modifier;
 import engine.ui.Element;
 
@@ -16,9 +19,15 @@ public class Renderer extends JComponent {
     private List<Modifier> modifiers = new ArrayList<>();
 
     private KeyHandler keyHandler;
+    private MouseHandler mouseHandler;
+    private MouseMotionHandler mouseMotionHandler;
+    private MouseWheel mouseWheel;
 
-    public Renderer(KeyHandler keyHandler) {
+    public Renderer(KeyHandler keyHandler, MouseHandler mouseHandler, MouseMotionHandler mouseMotionHandler, MouseWheel mouseWheel) {
         this.keyHandler = keyHandler;
+        this.mouseHandler = mouseHandler;
+        this.mouseMotionHandler = mouseMotionHandler;
+        this.mouseWheel = mouseWheel;
     }
 
     public void addElement(Element element) {
@@ -54,7 +63,7 @@ public class Renderer extends JComponent {
         }
         if (!elementList.isEmpty()) {
             for (Element element : elementList) {
-                element.update(keyHandler);
+                element.update(keyHandler, mouseHandler, mouseMotionHandler, mouseWheel);
             }
         }
     }
