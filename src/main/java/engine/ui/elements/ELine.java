@@ -15,7 +15,7 @@ public class ELine extends Element {
     public void draw(Graphics2D g, int width, int height, int xOffset, int yOffset) {
         ElementData elementData = getData(width, height);
 
-        g.setColor(getColor());
+        setColor(g);
         g.drawLine(elementData.x, elementData.y, elementData.x + elementData.width, elementData.y + elementData.height);
     }
 }

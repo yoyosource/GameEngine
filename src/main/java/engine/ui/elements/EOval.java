@@ -22,7 +22,7 @@ public class EOval extends Element {
     public void draw(Graphics2D g, int width, int height, int xOffset, int yOffset) {
         ElementData elementData = getData(width, height);
 
-        g.setColor(getColor());
+        setColor(g);
         if (!filled) {
             g.drawOval(elementData.x, elementData.y, elementData.width, elementData.height);
         } else {

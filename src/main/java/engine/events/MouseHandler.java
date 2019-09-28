@@ -7,6 +7,12 @@ public class MouseHandler implements MouseListener {
 
     private boolean pressed = false;
 
+    private MouseMotionHandler mouseMotionHandler;
+
+    public MouseHandler(MouseMotionHandler mouseMotionHandler) {
+        this.mouseMotionHandler = mouseMotionHandler;
+    }
+
     @Override
     public void mouseClicked(MouseEvent e) {
 
@@ -29,7 +35,7 @@ public class MouseHandler implements MouseListener {
 
     @Override
     public void mouseExited(MouseEvent e) {
-
+        mouseMotionHandler.leave();
     }
 
     public boolean isPressed() {

@@ -38,7 +38,7 @@ public class EArc extends Element {
     public void draw(Graphics2D g, int width, int height, int xOffset, int yOffset) {
         ElementData elementData = getData(width, height);
 
-        g.setColor(getColor());
+        setColor(g);
         if (!filled) {
             g.drawArc(elementData.x, elementData.y, elementData.width, elementData.height, startAngle, endAngle);
         } else {

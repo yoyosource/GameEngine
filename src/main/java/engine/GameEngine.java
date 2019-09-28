@@ -31,8 +31,8 @@ public class GameEngine implements Runnable {
     private double updateTime = 0;
 
     private KeyHandler keyHandler;
-    private MouseHandler mouseHandler;
     private MouseMotionHandler mouseMotionHandler;
+    private MouseHandler mouseHandler;
     private MouseWheel mouseWheel;
 
     private Action gameTickFunction = new Action();
@@ -48,8 +48,8 @@ public class GameEngine implements Runnable {
 
     private void createWindow() {
         keyHandler = new KeyHandler();
-        mouseHandler = new MouseHandler();
         mouseMotionHandler = new MouseMotionHandler();
+        mouseHandler = new MouseHandler(mouseMotionHandler);
         mouseWheel = new MouseWheel();
         renderer = new Renderer(keyHandler, mouseHandler, mouseMotionHandler, mouseWheel);
 

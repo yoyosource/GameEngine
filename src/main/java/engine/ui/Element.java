@@ -19,6 +19,9 @@ public class Element {
 
     private Constraint constraint = new Constraint();
     private Color color;
+    private Color nColor;
+    private int fade = 0;
+    private int maxFade = 0;
 
     private ElementData elementData = new ElementData();
 
@@ -66,8 +69,64 @@ public class Element {
         event.setElement(this);
     }
 
-    protected Color getColor() {
+    public Color getColor() {
         return color;
+    }
+
+    protected void setColor(Graphics2D g) {
+        if (maxFade > 0 && nColor != null) {
+            Color nColor;
+            try {
+                nColor = new Color(this.nColor.getRed(), this.nColor.getGreen(), this.nColor.getBlue(), this. nColor.getAlpha());
+            } catch (NullPointerException e) {
+                g.setColor(color);
+                return;
+            }
+            double changeR = (nColor.getRed() - color.getRed()) / maxFade * fade;
+            double changeG = (nColor.getGreen() - color.getGreen()) / maxFade * fade;
+            double changeB = (nColor.getBlue() - color.getBlue()) / maxFade * fade;
+            double changeA = (nColor.getAlpha() - color.getAlpha()) / maxFade * fade;
+
+            int R = color.getRed() + (int)changeR;
+            if (R > 255) {
+                R = 255;
+            }
+            if (R < 0) {
+                R = 0;
+            }
+
+            int G = color.getGreen() + (int)changeG;
+            if (G > 255) {
+                G = 255;
+            }
+            if (G < 0) {
+                G = 0;
+            }
+
+            int B = color.getBlue() + (int)changeB;
+            if (B > 255) {
+                B = 255;
+            }
+            if (B < 0) {
+                B = 0;
+            }
+
+            int A = color.getAlpha() + (int)changeA;
+            if (A > 255) {
+                A = 255;
+            }
+            if (A < 0) {
+                A = 0;
+            }
+
+            g.setColor(new Color(R, G, B, A));
+            return;
+        }
+        if (nColor != null) {
+            g.setColor(nColor);
+        } else {
+            g.setColor(color);
+        }
     }
 
     protected ElementData getData(int width, int height) {
@@ -140,14 +199,29 @@ public class Element {
         }
     }
 
+    public void setnColor(Color color) {
+        nColor = color;
+    }
+
+    public void setMaxFade(int maxFade) {
+        this.maxFade = maxFade;
+    }
+
     public void update(KeyHandler keyHandler, MouseHandler mouseHandler, MouseMotionHandler mouseMotionHandler, MouseWheel mouseWheel) {
         for (Modifier modifier : modifiers) {
             modifier.update(keyHandler);
         }
+        nColor = null;
+        maxFade = 0;
         for (Event event : events) {
             if (event.isEventToggle(keyHandler, mouseHandler, mouseMotionHandler, mouseWheel)) {
                 event.run();
             }
+        }
+        if (maxFade == 0) {
+            fade = 0;
+        } else if (fade < maxFade) {
+            fade++;
         }
         if (!childs.isEmpty()) {
             for (Element element : childs) {

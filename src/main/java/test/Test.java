@@ -7,10 +7,11 @@ import engine.constraints.dimensions.*;
 import engine.constraints.locations.*;
 import engine.ui.elements.ERectangle;
 import engine.uiBehavior.Action;
-import engine.uiBehavior.events.EventClick;
-import engine.uiBehavior.events.EventKeyHold;
-import engine.uiBehavior.events.EventKeyStroke;
-import engine.uiBehavior.events.EventScroll;
+import engine.uiBehavior.actions.ActionAlpha;
+import engine.uiBehavior.actions.ActionAlphaFade;
+import engine.uiBehavior.actions.ActionColor;
+import engine.uiBehavior.events.*;
+import engine.uiBehavior.modifier.ModifierRotateDynamic;
 
 import java.awt.*;
 
@@ -21,7 +22,7 @@ public class Test {
         gameEngine.setUpdateTime(120);
         gameEngine.setMinSize(Toolkit.getDefaultToolkit().getScreenSize().width / 4 * 3, Toolkit.getDefaultToolkit().getScreenSize().height / 4 * 3);
 
-        /*ERectangle sideBarLeft = new ERectangle(new Color(100, 100, 100, 100));
+        ERectangle sideBarLeft = new ERectangle(new Color(100, 100, 100, 100));
         Constraint sideBarLeftConstraint = new Constraint();
         Margin sideBarMargin = new Margin();
         sideBarMargin.setMarginDown(10);
@@ -33,14 +34,9 @@ public class Test {
         sideBarLeft.setConstraints(sideBarLeftConstraint);
         gameEngine.addElement(sideBarLeft);
 
-        EventScroll eventClick = new EventScroll();
-        eventClick.addAction(new Action(){
-            @Override
-            public void run() {
-                System.out.println("test");
-            }
-        });
-        sideBarLeft.addEvent(eventClick);*/
+        EventHover eventHover = new EventHover();
+        eventHover.addAction(new ActionAlphaFade(200));
+        sideBarLeft.addEvent(eventHover);
 
         System.out.println(gameEngine.elementCount());
     }

@@ -22,7 +22,7 @@ public class ETriangle extends Element {
     public void draw(Graphics2D g, int width, int height, int xOffset, int yOffset) {
         ElementData elementData = getData(width, height);
 
-        g.setColor(getColor());
+        setColor(g);
         Polygon p = createPolygon(new int[]{elementData.x, elementData.x + elementData.width, elementData.x}, new int[]{elementData.y, elementData.y, elementData.y + elementData.height});
         if (!filled) {
             g.drawPolygon(p);

@@ -22,4 +22,8 @@ public class MouseMotionHandler implements MouseMotionListener {
     public Point getPos() {
         return pos;
     }
+
+    public void leave() {
+        pos = new Point(-10000, -10000);
+    }
 }
