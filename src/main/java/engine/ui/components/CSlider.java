@@ -99,4 +99,8 @@ public class CSlider extends Element {
 
     }
 
+    @Override
+    public void addChild(Element element) {
+
+    }
 }
