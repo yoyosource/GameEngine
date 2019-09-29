@@ -10,6 +10,7 @@ import engine.uiBehavior.Action;
 import engine.uiBehavior.actions.ActionAlpha;
 import engine.uiBehavior.actions.ActionAlphaFade;
 import engine.uiBehavior.actions.ActionColor;
+import engine.uiBehavior.actions.ActionColorFade;
 import engine.uiBehavior.events.*;
 import engine.uiBehavior.modifier.ModifierRotateDynamic;
 
@@ -35,7 +36,7 @@ public class Test {
         gameEngine.addElement(sideBarLeft);
 
         EventHover eventHover = new EventHover();
-        eventHover.addAction(new ActionAlphaFade(200, 100));
+        eventHover.addAction(new ActionColorFade(new Color(200, 100, 0, 200), 100));
         sideBarLeft.addEvent(eventHover);
 
         System.out.println(gameEngine.elementCount());

@@ -20,6 +20,7 @@ public class Element {
     private Constraint constraint = new Constraint();
     private Color color;
     private Color nColor;
+    private Color nColorChange;
     private int fade = 0;
     private int maxFade = 0;
     private int fadeTime = 0;
@@ -207,9 +208,7 @@ public class Element {
     }
 
     public void setnColor(Color color) {
-        synchronized (this) {
-            nColor = color;
-        }
+        nColorChange = color;
     }
 
     public void setMaxFade(int fadeTime) {
@@ -233,6 +232,15 @@ public class Element {
             fade++;
         }
         maxFade = fadeTime;
+        if (nColorChange == null) {
+            nColor = null;
+        } else {
+            int r = nColorChange.getRed();
+            int g = nColorChange.getGreen();
+            int b = nColorChange.getBlue();
+            int a = nColorChange.getAlpha();
+            nColor = new Color(r, g, b, a);
+        }
         if (!childs.isEmpty()) {
             for (Element element : childs) {
                 element.update(keyHandler, mouseHandler, mouseMotionHandler, mouseWheel);
