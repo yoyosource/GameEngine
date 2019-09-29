@@ -32,9 +32,9 @@ public class E3DRectangle extends Element {
 
         setColor(g);
         if (!filled) {
-            g.draw3DRect(elementData.x, elementData.y, elementData.width, elementData.height, b);
+            g.draw3DRect(elementData.x + xOffset, elementData.y + yOffset, elementData.width, elementData.height, b);
         } else {
-            g.fill3DRect(elementData.x, elementData.y, elementData.width, elementData.height, b);
+            g.fill3DRect(elementData.x + xOffset, elementData.y + yOffset, elementData.width, elementData.height, b);
         }
     }
 

@@ -69,7 +69,11 @@ public class Renderer extends JComponent {
     }
 
     public int elementCount() {
-        return elementList.size();
+        int elements = elementList.size();
+        for (Element element : elementList) {
+            elements += element.elementCount();
+        }
+        return elements;
     }
 
 }

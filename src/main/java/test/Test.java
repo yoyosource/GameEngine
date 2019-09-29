@@ -5,6 +5,8 @@ import engine.constraints.Constraint;
 import engine.constraints.Margin;
 import engine.constraints.dimensions.*;
 import engine.constraints.locations.*;
+import engine.ui.components.CSidebar;
+import engine.ui.components.CSlider;
 import engine.ui.elements.ERectangle;
 import engine.uiBehavior.Action;
 import engine.uiBehavior.actions.*;
@@ -20,21 +22,20 @@ public class Test {
         gameEngine.setUpdateTime(120);
         gameEngine.setMinSize(Toolkit.getDefaultToolkit().getScreenSize().width / 4 * 3, Toolkit.getDefaultToolkit().getScreenSize().height / 4 * 3);
 
-        ERectangle sideBarLeft = new ERectangle(new Color(100, 100, 100, 100));
-        Constraint sideBarLeftConstraint = new Constraint();
-        Margin sideBarMargin = new Margin();
-        sideBarMargin.setMarginDown(10);
-        sideBarLeftConstraint.setMargin(sideBarMargin);
-        sideBarLeftConstraint.setXConstraint(new ConstraintXFixed(10));
-        sideBarLeftConstraint.setYConstraint(new ConstraintYFixed(10));
-        sideBarLeftConstraint.setHeightConstraint(new ConstraintHeightFullscreen());
-        sideBarLeftConstraint.setWidthConstraint(new ConstraintWidthPercent(0.225));
-        sideBarLeft.setConstraints(sideBarLeftConstraint);
-        gameEngine.addElement(sideBarLeft);
-
+        CSidebar sidebar = new CSidebar(10, 10, 10, 0.225);
         EventClick eventHover = new EventClick(true);
         eventHover.addAction(new ActionToggle(new ActionHide()));
-        sideBarLeft.addEvent(eventHover);
+        gameEngine.addElement(sidebar);
+
+        CSlider cSlider = new CSlider(new Color(100, 100, 100, 255), 15, 0.9);
+        sidebar.addChild(cSlider);
+        Action action = new Action(){
+            @Override
+            public void run() {
+                System.out.println("hi");
+            }
+        };
+        cSlider.addChangeAction(action);
 
         System.out.println(gameEngine.elementCount());
     }

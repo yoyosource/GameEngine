@@ -23,7 +23,7 @@ public class ETriangle extends Element {
         ElementData elementData = getData(width, height);
 
         setColor(g);
-        Polygon p = createPolygon(new int[]{elementData.x, elementData.x + elementData.width, elementData.x}, new int[]{elementData.y, elementData.y, elementData.y + elementData.height});
+        Polygon p = createPolygon(new int[]{elementData.x + xOffset, elementData.x + xOffset + elementData.width, elementData.x + xOffset}, new int[]{elementData.y + yOffset, elementData.y + yOffset, elementData.y + yOffset + elementData.height});
         if (!filled) {
             g.drawPolygon(p);
         } else {

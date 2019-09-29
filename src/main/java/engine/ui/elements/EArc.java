@@ -40,9 +40,9 @@ public class EArc extends Element {
 
         setColor(g);
         if (!filled) {
-            g.drawArc(elementData.x, elementData.y, elementData.width, elementData.height, startAngle, endAngle);
+            g.drawArc(elementData.x + xOffset, elementData.y + yOffset, elementData.width, elementData.height, startAngle, endAngle);
         } else {
-            g.fillArc(elementData.x, elementData.y, elementData.width, elementData.height, startAngle, endAngle);
+            g.fillArc(elementData.x + xOffset, elementData.y + yOffset, elementData.width, elementData.height, startAngle, endAngle);
         }
     }
 }

@@ -16,6 +16,6 @@ public class ELine extends Element {
         ElementData elementData = getData(width, height);
 
         setColor(g);
-        g.drawLine(elementData.x, elementData.y, elementData.x + elementData.width, elementData.y + elementData.height);
+        g.drawLine(elementData.x + xOffset, elementData.y + yOffset, elementData.x + xOffset + elementData.width, elementData.y + yOffset + elementData.height);
     }
 }
