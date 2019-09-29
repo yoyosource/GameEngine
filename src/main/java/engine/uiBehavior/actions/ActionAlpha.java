@@ -9,6 +9,7 @@ public class ActionAlpha extends Action {
     private int alpha;
 
     public ActionAlpha(int alpha) {
+        setId();
         this.alpha = alpha;
     }
 

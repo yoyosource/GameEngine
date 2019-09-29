@@ -10,10 +10,12 @@ public class ActionAlphaFade extends Action {
     private int alpha;
 
     public ActionAlphaFade(int alpha) {
+        setId();
         this.alpha = alpha;
     }
 
     public ActionAlphaFade(int alpha, int fadeTime) {
+        setId();
         this.alpha = alpha;
         this.fadeTime = fadeTime;
     }

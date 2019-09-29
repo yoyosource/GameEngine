@@ -8,6 +8,7 @@ import engine.events.KeyHandler;
 import engine.events.MouseHandler;
 import engine.events.MouseMotionHandler;
 import engine.events.MouseWheel;
+import engine.uiBehavior.Action;
 import engine.uiBehavior.Event;
 import engine.uiBehavior.Modifier;
 
@@ -15,6 +16,9 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Element is the class to draw any thing on the view.
+ */
 public class Element {
 
     private Constraint constraint = new Constraint();
@@ -32,11 +36,39 @@ public class Element {
 
     private List<Element> childs = new ArrayList<>();
 
+    private boolean hide = false;
+    private boolean hide2 = false;
+
+    private List<Action> action = new ArrayList<>();
+
+    /**
+     * This draws the object you want to draw.
+     *
+     * This method should be overridden from subclasses of Element.
+     *
+     * @param g
+     * @param width
+     * @param height
+     * @param xOffset
+     * @param yOffset
+     */
     public void draw(Graphics2D g, int width, int height, int xOffset, int yOffset) {
-        g.setColor(color);
+        setColor(g);
     }
 
+    /**
+     * drawChilds will draw every Children element of this Element.
+     *
+     * Don't override this method.
+     *
+     * @param g
+     * @param width
+     * @param height
+     */
     public void drawChilds(Graphics2D g, int width, int height) {
+        if (hide) {
+            return;
+        }
         if (childs.isEmpty()) {
             return;
         }
@@ -50,18 +82,46 @@ public class Element {
         }
     }
 
+    /**
+     * setConstraints is used to set the Constraints of the Element.
+     *
+     * Don't override this method.
+     *
+     * @param constraint
+     */
     public void setConstraints(Constraint constraint) {
         this.constraint = constraint;
     }
 
+    /**
+     * setColor is used to set the normal color of the Element.
+     *
+     * Don't override this method.
+     *
+     * @param color
+     */
     public void setColor(Color color) {
         this.color = color;
     }
 
+    /**
+     * Use this Method to add new Children to the Element.
+     *
+     * Don't override this method.
+     *
+     * @param element
+     */
     public void addChild(Element element) {
         childs.add(element);
     }
 
+    /**
+     * Use this Method to add new Modifiers to the Element.
+     *
+     * Don't override this method.
+     *
+     * @param modifier
+     */
     public void addModifier(Modifier modifier) {
         modifiers.add(modifier);
     }
@@ -71,10 +131,26 @@ public class Element {
         event.setElement(this);
     }
 
+    /**
+     * getColor is used to get the default color of the element.
+     *
+     * Expected use in Actions.
+     * Don't override this method.
+     *
+     * @return
+     */
     public Color getColor() {
         return color;
     }
 
+
+    /**
+     * setColor will set the correct color to the view if any fade or colorChange happened.
+     *
+     * Don't override this method.
+     *
+     * @param g
+     */
     protected void setColor(Graphics2D g) {
         /*
         !!! IMPORTANT !!!
@@ -137,7 +213,22 @@ public class Element {
         }
     }
 
+    /**
+     * This Method is used for evaluating the constraints to the x, y, width and height of the Element.
+     *
+     * Don't override this method.
+     *
+     * @param width
+     * @param height
+     * @return
+     */
     protected ElementData getData(int width, int height) {
+        /*
+        !!! IMPORTANT !!!
+        fixing synchronization issues accessing the variable hide.
+         */
+        boolean hideLocal = hide;
+
         ElementData elementData = new ElementData();
 
         if (constraint.getWidthConstraint().isRatio() && constraint.getHeightConstraint().isRatio()) {
@@ -179,20 +270,45 @@ public class Element {
 
         x += constraint.getOffset().getOffsetLeft();
 
+        this.elementData = new ElementData();
+        this.elementData.x = x;
+        this.elementData.y = y;
+        this.elementData.width = w;
+        this.elementData.height = h;
+
+        if (hideLocal) {
+            x -= width - w - 10;
+            y -= height - h - 10;
+        }
+
         elementData.x = x;
         elementData.y = y;
         elementData.width = w;
         elementData.height = h;
 
-        this.elementData = elementData;
-
         return elementData;
     }
 
+    /**
+     * Get the ElementData from the last update of the Element.
+     *
+     * Don't override this method.
+     *
+     * @return
+     */
     public ElementData getData() {
         return elementData;
     }
 
+    /**
+     * modify modifies the View.
+     *
+     * Don't override this method.
+     *
+     * @param g
+     * @param width
+     * @param height
+     */
     public void modify(Graphics2D g, int width, int height) {
         for (Modifier modifier : modifiers) {
             modifier.modify(g);
@@ -200,6 +316,16 @@ public class Element {
         }
     }
 
+    /**
+     * modifyInvert modifies the View inverse to the modifications in modify.
+     * @see #modify
+     *
+     * Don't override this method.
+     *
+     * @param g
+     * @param width
+     * @param height
+     */
     public void modifyInvert(Graphics2D g, int width, int height) {
         for (Modifier modifier : modifiers) {
             modifier.modifyInvert(g);
@@ -207,23 +333,92 @@ public class Element {
         }
     }
 
+    /**
+     * setnColor is used to change the Color of the Element.
+     * Only use this Method in an Action or subclasses.
+     *
+     * Don't override this method.
+     *
+     * @param color
+     */
     public void setnColor(Color color) {
         nColorChange = color;
     }
 
+    /**
+     * setMaxFade is used to change the Fade Time to the updates it should take to fade from the base color to the new Color.
+     * Only use this Method in an Action or subclasses.
+     *
+     * Don't override this method.
+     *
+     * @param fadeTime
+     */
     public void setMaxFade(int fadeTime) {
         this.fadeTime = fadeTime;
     }
 
+    /**
+     * setHide is used to Hide the Element from the view.
+     * Only use this Method in an Action or subclasses.
+     *
+     * Don't override this method.
+     *
+     * @param hide
+     */
+    public void setHide(boolean hide) {
+        this.hide2 = hide;
+    }
+
+    /**
+     * Remove a specific Action from this Element.
+     *
+     * Don't override this method.
+     *
+     * @param action
+     */
+    public void removeAction(Action action) {
+        this.action.remove(action);
+    }
+
+    /**
+     * Add a specific Action to this Element.
+     *
+     * Don't override this method.
+     *
+     * @param action
+     */
+    public void addAction(Action action) {
+        this.action.add(action);
+    }
+
+    /**
+     * update is used to update some things in Element.
+     *
+     * Don't override this method.
+     *
+     * @param keyHandler
+     * @param mouseHandler
+     * @param mouseMotionHandler
+     * @param mouseWheel
+     */
     public void update(KeyHandler keyHandler, MouseHandler mouseHandler, MouseMotionHandler mouseMotionHandler, MouseWheel mouseWheel) {
         for (Modifier modifier : modifiers) {
             modifier.update(keyHandler);
         }
+        setHide(false);
         setnColor(null);
         setMaxFade(0);
         for (Event event : events) {
+            if (hide && !event.runWhenHidden()) {
+                continue;
+            }
             if (event.isEventToggle(keyHandler, mouseHandler, mouseMotionHandler, mouseWheel)) {
                 event.run();
+            }
+        }
+        if (!action.isEmpty()) {
+            for (Action action : action) {
+                action.run();
             }
         }
         if (fadeTime == 0) {
@@ -232,6 +427,7 @@ public class Element {
             fade++;
         }
         maxFade = fadeTime;
+        hide = hide2;
         if (nColorChange == null) {
             nColor = null;
         } else {

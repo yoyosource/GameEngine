@@ -11,6 +11,16 @@ import java.awt.*;
 
 public class EventHold extends Event {
 
+    private boolean runWhenHidden = false;
+
+    public EventHold() {
+
+    }
+
+    public EventHold(boolean runWhenHidden) {
+        this.runWhenHidden = runWhenHidden;
+    }
+
     @Override
     public boolean isEventToggle(KeyHandler keyHandler, MouseHandler mouseHandler, MouseMotionHandler mouseMotionHandler, MouseWheel mouseWheel) {
         ElementData elementData = getElement().getData();
@@ -24,5 +34,10 @@ public class EventHold extends Event {
         }
 
         return false;
+    }
+
+    @Override
+    public boolean runWhenHidden() {
+        return runWhenHidden;
     }
 }

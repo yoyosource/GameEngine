@@ -11,6 +11,16 @@ import java.awt.*;
 
 public class EventHover extends Event {
 
+    private boolean runWhenHidden = false;
+
+    public EventHover() {
+
+    }
+
+    public EventHover(boolean runWhenHidden) {
+        this.runWhenHidden = runWhenHidden;
+    }
+
     @Override
     public boolean isEventToggle(KeyHandler keyHandler, MouseHandler mouseHandler, MouseMotionHandler mouseMotionHandler, MouseWheel mouseWheel) {
         ElementData elementData = getElement().getData();
@@ -24,5 +34,10 @@ public class EventHover extends Event {
         }
 
         return false;
+    }
+
+    @Override
+    public boolean runWhenHidden() {
+        return runWhenHidden;
     }
 }

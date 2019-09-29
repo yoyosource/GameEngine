@@ -9,6 +9,7 @@ public class ActionColor extends Action {
     private Color color;
 
     public ActionColor(Color color) {
+        setId();
         this.color = color;
     }
 

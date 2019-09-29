@@ -39,4 +39,8 @@ public class Event {
         actions.add(action);
     }
 
+    public boolean runWhenHidden() {
+        return false;
+    }
+
 }

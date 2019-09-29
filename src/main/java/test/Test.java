@@ -7,10 +7,7 @@ import engine.constraints.dimensions.*;
 import engine.constraints.locations.*;
 import engine.ui.elements.ERectangle;
 import engine.uiBehavior.Action;
-import engine.uiBehavior.actions.ActionAlpha;
-import engine.uiBehavior.actions.ActionAlphaFade;
-import engine.uiBehavior.actions.ActionColor;
-import engine.uiBehavior.actions.ActionColorFade;
+import engine.uiBehavior.actions.*;
 import engine.uiBehavior.events.*;
 import engine.uiBehavior.modifier.ModifierRotateDynamic;
 
@@ -35,8 +32,8 @@ public class Test {
         sideBarLeft.setConstraints(sideBarLeftConstraint);
         gameEngine.addElement(sideBarLeft);
 
-        EventHover eventHover = new EventHover();
-        eventHover.addAction(new ActionColorFade(new Color(200, 100, 0, 200), 100));
+        EventClick eventHover = new EventClick(true);
+        eventHover.addAction(new ActionToggle(new ActionHide()));
         sideBarLeft.addEvent(eventHover);
 
         System.out.println(gameEngine.elementCount());

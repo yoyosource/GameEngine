@@ -10,10 +10,12 @@ public class ActionColorFade extends Action {
     private Color color;
 
     public ActionColorFade(Color color) {
+        setId();
         this.color = color;
     }
 
     public ActionColorFade(Color color, int fadeTime) {
+        setId();
         this.color = color;
         this.fadeTime = fadeTime;
     }
