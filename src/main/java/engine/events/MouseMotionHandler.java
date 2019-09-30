@@ -10,13 +10,16 @@ public class MouseMotionHandler implements MouseMotionListener {
 
     @Override
     public void mouseDragged(MouseEvent e) {
-
+        pos = e.getPoint();
+        pos.y -= 30;
+        pos.x -= 10;
     }
 
     @Override
     public void mouseMoved(MouseEvent e) {
         pos = e.getPoint();
-        pos.y -= 20;
+        pos.y -= 30;
+        pos.x -= 10;
     }
 
     public Point getPos() {

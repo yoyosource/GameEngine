@@ -13,6 +13,7 @@ public class EventClick extends Event {
 
     private boolean p = false;
     private boolean runWhenHidden = false;
+    private Point pos = new Point(0, 0);
 
     public EventClick() {
 
@@ -26,10 +27,10 @@ public class EventClick extends Event {
     public boolean isEventToggle(KeyHandler keyHandler, MouseHandler mouseHandler, MouseMotionHandler mouseMotionHandler, MouseWheel mouseWheel) {
         ElementData elementData = getElement().getData();
 
-        Point pos = mouseMotionHandler.getPos();
+        pos = new Point(mouseMotionHandler.getPos().x, mouseMotionHandler.getPos().y);
 
-        if (elementData.x < pos.x && elementData.x + elementData.width > pos.x) {
-            if (elementData.y < pos.y && elementData.y + elementData.height > pos.y) {
+        if (elementData.x <= pos.x && elementData.x + elementData.width >= pos.x) {
+            if (elementData.y <= pos.y && elementData.y + elementData.height >= pos.y) {
                 if (!p && mouseHandler.isPressed()) {
                     p = true;
                     return true;
@@ -44,6 +45,10 @@ public class EventClick extends Event {
         p = false;
 
         return false;
+    }
+
+    public Point getPos() {
+        return pos;
     }
 
     @Override

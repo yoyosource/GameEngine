@@ -444,4 +444,19 @@ public class Element {
         }
     }
 
+    /**
+     * elementCount is used to count every child element of this element.
+     *
+     * Don't override this method.
+     *
+     * @return
+     */
+    public int elementCount() {
+        int count = childs.size();
+        for (Element element : childs) {
+            count += element.elementCount();
+        }
+        return count;
+    }
+
 }

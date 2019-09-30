@@ -25,15 +25,15 @@ public class ECircle extends Element {
         setColor(g);
         if (elementData.width == -1) {
             if (!filled) {
-                g.drawOval(elementData.x, elementData.y, elementData.height, elementData.height);
+                g.drawOval(elementData.x + xOffset, elementData.y + yOffset, elementData.height, elementData.height);
             } else {
-                g.fillOval(elementData.x, elementData.y, elementData.height, elementData.height);
+                g.fillOval(elementData.x + xOffset, elementData.y + yOffset, elementData.height, elementData.height);
             }
         } else {
             if (!filled) {
-                g.drawOval(elementData.x, elementData.y, elementData.width, elementData.width);
+                g.drawOval(elementData.x + xOffset, elementData.y + yOffset, elementData.width, elementData.width);
             } else {
-                g.fillOval(elementData.x, elementData.y, elementData.width, elementData.width);
+                g.fillOval(elementData.x + xOffset, elementData.y + yOffset, elementData.width, elementData.width);
             }
         }
     }

@@ -24,9 +24,9 @@ public class ERectangle extends Element {
 
         setColor(g);
         if (!filled) {
-            g.drawRect(elementData.x, elementData.y, elementData.width, elementData.height);
+            g.drawRect(elementData.x + xOffset, elementData.y + yOffset, elementData.width, elementData.height);
         } else {
-            g.fillRect(elementData.x, elementData.y, elementData.width, elementData.height);
+            g.fillRect(elementData.x + xOffset, elementData.y + yOffset, elementData.width, elementData.height);
         }
     }
 }

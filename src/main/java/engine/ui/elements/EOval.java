@@ -24,9 +24,9 @@ public class EOval extends Element {
 
         setColor(g);
         if (!filled) {
-            g.drawOval(elementData.x, elementData.y, elementData.width, elementData.height);
+            g.drawOval(elementData.x + xOffset, elementData.y + yOffset, elementData.width, elementData.height);
         } else {
-            g.fillOval(elementData.x, elementData.y, elementData.width, elementData.height);
+            g.fillOval(elementData.x + xOffset, elementData.y + yOffset, elementData.width, elementData.height);
         }
     }
 

@@ -9,11 +9,11 @@ import engine.constraints.locations.ConstraintXFixed;
 import engine.constraints.locations.ConstraintXFixedRight;
 import engine.constraints.locations.ConstraintYFixed;
 import engine.ui.Element;
-import engine.ui.elements.ERectangle;
+import engine.ui.ElementData;
 
 import java.awt.*;
 
-public class CSidebar {
+public class CSidebar extends Element {
 
     private int top = 0;
     private int bottom = 0;
@@ -22,30 +22,32 @@ public class CSidebar {
     private double width = 0.0;
     private boolean isFixed = false;
 
-    private Color color;
+    private boolean left = true;
 
     public CSidebar(int top, int bottom, int side, int width) {
-        this.color = new Color(100, 100, 100, 100);
+        setColor(getDefault());
 
         this.top = top;
         this.bottom = bottom;
         this.side = side;
 
         this.width = width;
+        setConstraints();
     }
 
     public CSidebar(Color color, int top, int bottom, int side, int width) {
-        this.color = color;
+        setColor(color);
 
         this.top = top;
         this.bottom = bottom;
         this.side = side;
 
         this.width = width;
+        setConstraints();
     }
 
     public CSidebar(Color color, int top, int bottom, int side, int width, boolean fixed) {
-        this.color = color;
+        setColor(color);
 
         this.top = top;
         this.bottom = bottom;
@@ -53,30 +55,33 @@ public class CSidebar {
 
         this.width = width;
         this.isFixed = fixed;
+        setConstraints();
     }
 
     public CSidebar(int top, int bottom, int side, double width) {
-        this.color = new Color(100, 100, 100, 100);
+        setColor(getDefault());
 
         this.top = top;
         this.bottom = bottom;
         this.side = side;
 
         this.width = width;
+        setConstraints();
     }
 
     public CSidebar(Color color, int top, int bottom, int side, double width) {
-        this.color = color;
+        setColor(color);
 
         this.top = top;
         this.bottom = bottom;
         this.side = side;
 
         this.width = width;
+        setConstraints();
     }
 
     public CSidebar(Color color, int top, int bottom, int side, double width, boolean fixed) {
-        this.color = color;
+        setColor(color);
 
         this.top = top;
         this.bottom = bottom;
@@ -84,46 +89,49 @@ public class CSidebar {
 
         this.width = width;
         this.isFixed = fixed;
+        setConstraints();
     }
 
-    public Element getSidebarRight() {
-        ERectangle sideBarRight = new ERectangle(color);
-        Constraint sideBarRightConstraint = new Constraint();
-        Margin sideBarMargin = new Margin();
-        sideBarMargin.setMarginDown(bottom);
-        sideBarRightConstraint.setMargin(sideBarMargin);
-        sideBarRightConstraint.setXConstraint(new ConstraintXFixedRight(side));
-        sideBarRightConstraint.setYConstraint(new ConstraintYFixed(top));
-        sideBarRightConstraint.setHeightConstraint(new ConstraintHeightFullscreen());
-        if (isFixed) {
-            sideBarRightConstraint.setWidthConstraint(new ConstraintWidthFixed((int)width));
-        } else {
-            sideBarRightConstraint.setWidthConstraint(new ConstraintWidthPercent(width));
-        }
-        sideBarRight.setConstraints(sideBarRightConstraint);
-        return sideBarRight;
+    public void setRight() {
+        left = false;
+        setConstraints();
     }
 
-    public Element getSidebarLeft() {
-        ERectangle sideBarLeft = new ERectangle(color);
-        Constraint sideBarLeftConstraint = new Constraint();
+    public void setLeft() {
+        left = true;
+        setConstraints();
+    }
+
+    private void setConstraints() {
+        Constraint sideBarConstraint = new Constraint();
         Margin sideBarMargin = new Margin();
         sideBarMargin.setMarginDown(bottom);
-        sideBarLeftConstraint.setMargin(sideBarMargin);
-        sideBarLeftConstraint.setXConstraint(new ConstraintXFixed(side));
-        sideBarLeftConstraint.setYConstraint(new ConstraintYFixed(top));
-        sideBarLeftConstraint.setHeightConstraint(new ConstraintHeightFullscreen());
-        if (isFixed) {
-            sideBarLeftConstraint.setWidthConstraint(new ConstraintWidthFixed((int)width));
+        sideBarConstraint.setMargin(sideBarMargin);
+        if (left) {
+            sideBarConstraint.setXConstraint(new ConstraintXFixed(side));
         } else {
-            sideBarLeftConstraint.setWidthConstraint(new ConstraintWidthPercent(width));
+            sideBarConstraint.setXConstraint(new ConstraintXFixedRight(side));
         }
-        sideBarLeft.setConstraints(sideBarLeftConstraint);
-        return sideBarLeft;
+        sideBarConstraint.setYConstraint(new ConstraintYFixed(top));
+        sideBarConstraint.setHeightConstraint(new ConstraintHeightFullscreen());
+        if (isFixed) {
+            sideBarConstraint.setWidthConstraint(new ConstraintWidthFixed((int)width));
+        } else {
+            sideBarConstraint.setWidthConstraint(new ConstraintWidthPercent(width));
+        }
+        super.setConstraints(sideBarConstraint);
     }
 
     public static Color getDefault() {
         return new Color(100, 100, 100, 100);
+    }
+
+    @Override
+    public void draw(Graphics2D g, int width, int height, int xOffset, int yOffset) {
+        ElementData elementData = getData(width, height);
+
+        setColor(g);
+        g.fillRect(elementData.x + xOffset, elementData.y + yOffset, elementData.width, elementData.height);
     }
 
 }
