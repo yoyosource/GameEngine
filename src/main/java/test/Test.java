@@ -32,7 +32,7 @@ public class Test {
         Action action = new Action(){
             @Override
             public void run() {
-                System.out.println("hi");
+                System.out.println("test");
             }
         };
         cSlider.addChangeAction(action);
