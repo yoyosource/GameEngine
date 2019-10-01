@@ -20,6 +20,6 @@ public class ConstraintXOffsetRight extends XConstraint {
 
     @Override
     public int positionX(int width, int height, int elementWidth, int elementHeight) {
-        return element.getData().x - elementWidth - element.getData().width - offset;
+        return element.getData().x - element.getData().width - offset;
     }
 }

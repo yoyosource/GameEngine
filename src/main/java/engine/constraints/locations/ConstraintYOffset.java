@@ -20,6 +20,6 @@ public class ConstraintYOffset extends YConstraint {
 
     @Override
     public int positionY(int width, int height, int elementWidth, int elementHeight) {
-        return element.getData().y + offset;
+        return element.getData().y + element.getData().height + offset;
     }
 }
