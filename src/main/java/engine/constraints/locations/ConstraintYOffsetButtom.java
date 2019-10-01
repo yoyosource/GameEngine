@@ -3,23 +3,23 @@ package engine.constraints.locations;
 import engine.constraints.constraintInterfaces.YConstraint;
 import engine.ui.Element;
 
-public class ConstraintYOffsetBottum extends YConstraint {
+public class ConstraintYOffsetButtom extends YConstraint {
 
     private Element element;
 
     private int offset = 10;
 
-    public ConstraintYOffsetBottum(Element element) {
+    public ConstraintYOffsetButtom(Element element) {
         this.element = element;
     }
 
-    public ConstraintYOffsetBottum(Element element, int offset) {
+    public ConstraintYOffsetButtom(Element element, int offset) {
         this.element = element;
         this.offset = offset;
     }
 
     @Override
     public int positionY(int width, int height, int elementWidth, int elementHeight) {
-        return element.getData().y - elementWidth - element.getData().height - offset;
+        return element.getData().y - elementHeight - element.getData().height - offset;
     }
 }
