@@ -3,17 +3,17 @@ package engine.constraints.locations;
 import engine.constraints.constraintInterfaces.YConstraint;
 import engine.ui.Element;
 
-public class ConstraintYOffsetBottum extends YConstraint {
+public class ConstraintYOffsetBottom extends YConstraint {
 
     private Element element;
 
     private int offset = 10;
 
-    public ConstraintYOffsetBottum(Element element) {
+    public ConstraintYOffsetBottom(Element element) {
         this.element = element;
     }
 
-    public ConstraintYOffsetBottum(Element element, int offset) {
+    public ConstraintYOffsetBottom(Element element, int offset) {
         this.element = element;
         this.offset = offset;
     }

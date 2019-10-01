@@ -2,11 +2,11 @@ package engine.constraints.locations;
 
 import engine.constraints.constraintInterfaces.YConstraint;
 
-public class ConstraintYFixedBottum extends YConstraint {
+public class ConstraintYFixedBottom extends YConstraint {
 
     private int y;
 
-    public ConstraintYFixedBottum(int y) {
+    public ConstraintYFixedBottom(int y) {
         this.y = y;
     }
 
