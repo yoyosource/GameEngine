@@ -14,7 +14,7 @@ public class CButton extends Element {
 
     @Override
     public void addEvent(Event event) {
-
+        System.out.println("");
     }
 
     @Override
