@@ -14,14 +14,14 @@ public class Event {
     private List<Action> actions = new ArrayList<>();
     private Element element;
 
-    public void setElement(Element element) {
+    public final void setElement(Element element) {
         this.element = element;
         for (Action action : actions) {
             action.setElement(element);
         }
     }
 
-    public Element getElement() {
+    public final Element getElement() {
         return element;
     }
 
@@ -29,13 +29,13 @@ public class Event {
         return false;
     }
 
-    public void run() {
+    public final void run() {
         for (Action action : actions) {
             action.run();
         }
     }
 
-    public void addAction(Action action) {
+    public final void addAction(Action action) {
         actions.add(action);
     }
 

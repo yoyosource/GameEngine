@@ -10,12 +10,12 @@ public class Action {
     private int id = -1;
     private static int uuid = 0;
 
-    public int getId() {
+    public final int getId() {
         uuid++;
         return uuid;
     }
 
-    public void setId() {
+    public final void setId() {
         if (id == -1) {
             id = getId();
         }

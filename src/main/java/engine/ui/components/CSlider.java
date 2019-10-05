@@ -94,6 +94,10 @@ public class CSlider extends Element {
         eventChangeValue.addAction(action);
     }
 
+    public double getValue() {
+        return eventChangeValue.getValue();
+    }
+
     @Override
     public void addEvent(Event event) {
 

@@ -16,6 +16,42 @@ public class Constraint {
     private Margin margin = new Margin();
     private Offset offset = new Offset();
 
+    public Constraint() {
+
+    }
+
+    public Constraint(WidthConstraint widthConstraint, HeightConstraint heightConstraint, XConstraint xConstraint, YConstraint yConstraint) {
+        this.widthConstraint = widthConstraint;
+        this.heightConstraint = heightConstraint;
+        this.xConstraint = xConstraint;
+        this.yConstraint = yConstraint;
+    }
+
+    public Constraint(WidthConstraint widthConstraint, HeightConstraint heightConstraint, XConstraint xConstraint, YConstraint yConstraint, Margin margin) {
+        this.widthConstraint = widthConstraint;
+        this.heightConstraint = heightConstraint;
+        this.xConstraint = xConstraint;
+        this.yConstraint = yConstraint;
+        this.margin = margin;
+    }
+
+    public Constraint(WidthConstraint widthConstraint, HeightConstraint heightConstraint, XConstraint xConstraint, YConstraint yConstraint, Offset offset) {
+        this.widthConstraint = widthConstraint;
+        this.heightConstraint = heightConstraint;
+        this.xConstraint = xConstraint;
+        this.yConstraint = yConstraint;
+        this.offset = offset;
+    }
+
+    public Constraint(WidthConstraint widthConstraint, HeightConstraint heightConstraint, XConstraint xConstraint, YConstraint yConstraint, Margin margin, Offset offset) {
+        this.widthConstraint = widthConstraint;
+        this.heightConstraint = heightConstraint;
+        this.xConstraint = xConstraint;
+        this.yConstraint = yConstraint;
+        this.margin = margin;
+        this.offset = offset;
+    }
+
     public void setWidthConstraint(WidthConstraint widthConstraint) {
         this.widthConstraint = widthConstraint;
     }

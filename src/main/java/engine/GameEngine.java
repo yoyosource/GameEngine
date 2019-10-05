@@ -120,8 +120,6 @@ public class GameEngine implements Runnable {
 
     @Override
     public void run() {
-        int fps = 0;
-        long time = System.currentTimeMillis();
         long t = System.currentTimeMillis();
         while (rendering) {
             if (System.currentTimeMillis() - t > updateTime) {
@@ -132,12 +130,6 @@ public class GameEngine implements Runnable {
                 mouseWheel.update();
             }
             renderer.repaint();
-            fps++;
-            if (System.currentTimeMillis() - time > 1000) {
-                time = System.currentTimeMillis();
-                System.out.println("FPS: " + (fps));
-                fps = 0;
-            }
             /*
             try {
                 Thread.sleep(0, 100);

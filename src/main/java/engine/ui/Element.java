@@ -65,7 +65,7 @@ public class Element {
      * @param width
      * @param height
      */
-    public void drawChilds(Graphics2D g, int width, int height) {
+    public final void drawChilds(Graphics2D g, int width, int height) {
         if (hide) {
             return;
         }
@@ -89,7 +89,7 @@ public class Element {
      *
      * @param constraint
      */
-    public void setConstraints(Constraint constraint) {
+    public final void setConstraints(Constraint constraint) {
         this.constraint = constraint;
     }
 
@@ -100,7 +100,7 @@ public class Element {
      *
      * @param color
      */
-    public void setColor(Color color) {
+    public final void setColor(Color color) {
         this.color = color;
     }
 
@@ -139,7 +139,7 @@ public class Element {
      *
      * @return
      */
-    public Color getColor() {
+    public final Color getColor() {
         return color;
     }
 
@@ -151,7 +151,7 @@ public class Element {
      *
      * @param g
      */
-    protected void setColor(Graphics2D g) {
+    protected final void setColor(Graphics2D g) {
         /*
         !!! IMPORTANT !!!
         fixing synchronization issues accessing the variable maxFade and nColor.
@@ -222,7 +222,7 @@ public class Element {
      * @param height
      * @return
      */
-    protected ElementData getData(int width, int height) {
+    protected final ElementData getData(int width, int height) {
         /*
         !!! IMPORTANT !!!
         fixing synchronization issues accessing the variable hide.
@@ -296,7 +296,7 @@ public class Element {
      *
      * @return
      */
-    public ElementData getData() {
+    public final ElementData getData() {
         return elementData;
     }
 
@@ -309,7 +309,7 @@ public class Element {
      * @param width
      * @param height
      */
-    public void modify(Graphics2D g, int width, int height) {
+    public final void modify(Graphics2D g, int width, int height) {
         for (Modifier modifier : modifiers) {
             modifier.modify(g);
             modifier.modify(g, width, height);
@@ -326,7 +326,7 @@ public class Element {
      * @param width
      * @param height
      */
-    public void modifyInvert(Graphics2D g, int width, int height) {
+    public final void modifyInvert(Graphics2D g, int width, int height) {
         for (Modifier modifier : modifiers) {
             modifier.modifyInvert(g);
             modifier.modifyInvert(g, width, height);
@@ -341,7 +341,7 @@ public class Element {
      *
      * @param color
      */
-    public void setnColor(Color color) {
+    public final void setnColor(Color color) {
         nColorChange = color;
     }
 
@@ -353,7 +353,7 @@ public class Element {
      *
      * @param fadeTime
      */
-    public void setMaxFade(int fadeTime) {
+    public final void setMaxFade(int fadeTime) {
         this.fadeTime = fadeTime;
     }
 
@@ -365,7 +365,7 @@ public class Element {
      *
      * @param hide
      */
-    public void setHide(boolean hide) {
+    public final void setHide(boolean hide) {
         this.hide2 = hide;
     }
 
@@ -376,7 +376,7 @@ public class Element {
      *
      * @param action
      */
-    public void removeAction(Action action) {
+    public final void removeAction(Action action) {
         this.action.remove(action);
     }
 
@@ -387,7 +387,7 @@ public class Element {
      *
      * @param action
      */
-    public void addAction(Action action) {
+    public final void addAction(Action action) {
         this.action.add(action);
     }
 
@@ -401,7 +401,7 @@ public class Element {
      * @param mouseMotionHandler
      * @param mouseWheel
      */
-    public void update(KeyHandler keyHandler, MouseHandler mouseHandler, MouseMotionHandler mouseMotionHandler, MouseWheel mouseWheel) {
+    public final void update(KeyHandler keyHandler, MouseHandler mouseHandler, MouseMotionHandler mouseMotionHandler, MouseWheel mouseWheel) {
         for (Modifier modifier : modifiers) {
             modifier.update(keyHandler);
         }
@@ -451,7 +451,7 @@ public class Element {
      *
      * @return
      */
-    public int elementCount() {
+    public final int elementCount() {
         int count = childs.size();
         for (Element element : childs) {
             count += element.elementCount();

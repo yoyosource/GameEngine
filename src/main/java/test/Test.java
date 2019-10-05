@@ -5,6 +5,8 @@ import engine.constraints.Constraint;
 import engine.constraints.Margin;
 import engine.constraints.dimensions.*;
 import engine.constraints.locations.*;
+import engine.ui.Element;
+import engine.ui.components.CButton;
 import engine.ui.components.CSidebar;
 import engine.ui.components.CSlider;
 import engine.ui.elements.ERectangle;
@@ -29,13 +31,21 @@ public class Test {
 
         CSlider cSlider = new CSlider(new Color(100, 100, 100, 255), 15, 0.9);
         sidebar.addChild(cSlider);
-        Action action = new Action(){
+        cSlider.addChangeAction(new Action(){
             @Override
             public void run() {
-                System.out.println("test");
+                //System.out.println(cSlider.getValue());
             }
-        };
-        cSlider.addChangeAction(action);
+        });
+
+        CButton cButton = new CButton(new Color(200, 200, 200, 255), new Constraint(new ConstraintWidthPercent(0.5), new ConstraintHeightPercent(0.5), new ConstraintXCenter(), new ConstraintYCenter()));
+        sidebar.addChild(cButton);
+        cButton.addChangeAction(new Action(){
+            @Override
+            public void run() {
+                System.out.println(cButton.getValue());
+            }
+        });
 
         System.out.println(gameEngine.elementCount());
     }

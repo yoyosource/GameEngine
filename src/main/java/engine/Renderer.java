@@ -23,6 +23,9 @@ public class Renderer extends JComponent {
     private MouseMotionHandler mouseMotionHandler;
     private MouseWheel mouseWheel;
 
+    private long time = System.currentTimeMillis();
+    private int fps = 0;
+
     public Renderer(KeyHandler keyHandler, MouseHandler mouseHandler, MouseMotionHandler mouseMotionHandler, MouseWheel mouseWheel) {
         this.keyHandler = keyHandler;
         this.mouseHandler = mouseHandler;
@@ -38,6 +41,13 @@ public class Renderer extends JComponent {
 
     @Override
     protected void paintComponent(Graphics g1) {
+        fps++;
+        if (System.currentTimeMillis() - time > 1000) {
+            time = System.currentTimeMillis();
+            System.out.println("FPS: " + (fps));
+            fps = 0;
+        }
+
         Graphics2D g = (Graphics2D) g1;
 
         if (!modifiers.isEmpty()) {

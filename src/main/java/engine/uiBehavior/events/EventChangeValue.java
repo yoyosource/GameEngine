@@ -21,4 +21,8 @@ public class EventChangeValue extends Event {
     public void setCurrentValue(double currentValue) {
         this.currentValue = currentValue;
     }
+
+    public double getValue() {
+        return currentValue;
+    }
 }
