@@ -6,6 +6,7 @@ import engine.events.MouseMotionHandler;
 import engine.events.MouseWheel;
 import engine.uiBehavior.Modifier;
 import engine.ui.Element;
+import engine.uiBehavior.modifier.ModifierTranslateMovements;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,6 +18,9 @@ public class Renderer extends JComponent {
     private List<Element> elementList = new ArrayList<>();
 
     private List<Modifier> modifiers = new ArrayList<>();
+
+    private double fov = 1;
+    private double posZ = 0;
 
     private KeyHandler keyHandler;
     private MouseHandler mouseHandler;
@@ -39,6 +43,10 @@ public class Renderer extends JComponent {
 
     public void addModifier(Modifier modifier) { this.modifiers.add(modifier); }
 
+    public void setFov(double fov) {
+        this.fov = fov;
+    }
+
     @Override
     protected void paintComponent(Graphics g1) {
         fps++;
@@ -51,17 +59,21 @@ public class Renderer extends JComponent {
         Graphics2D g = (Graphics2D) g1;
 
         if (!modifiers.isEmpty()) {
-            for (Modifier modifier : modifiers) {
-                modifier.modify(g);
-                modifier.modify(g, getWidth(), getHeight());
+            for (int i = 0; i < modifiers.size(); i++) {
+                Modifier modifier = modifiers.get(i);
+                if (modifier instanceof ModifierTranslateMovements) {
+                    posZ = ((ModifierTranslateMovements)modifier).getPosZ();
+                }
+                modifier.modify(g, 1);
+                modifier.modify(g, getWidth(), getHeight(), 1);
             }
         }
 
         for (Element element : elementList) {
-            element.modify(g, getWidth(), getHeight());
+            element.modify(g, getWidth(), getHeight(), (element.getPosZ() + posZ) * fov);
             element.draw(g, getWidth(), getHeight(), 0, 0);
             element.drawChilds(g, getWidth(), getHeight());
-            element.modifyInvert(g, getWidth(), getHeight());
+            element.modifyInvert(g, getWidth(), getHeight(), (element.getPosZ() + posZ) * fov);
         }
     }
 
@@ -73,7 +85,7 @@ public class Renderer extends JComponent {
         }
         if (!elementList.isEmpty()) {
             for (Element element : elementList) {
-                element.update(keyHandler, mouseHandler, mouseMotionHandler, mouseWheel);
+                element.update(keyHandler, mouseHandler, mouseMotionHandler, mouseWheel, fov, posZ);
             }
         }
     }
@@ -84,6 +96,10 @@ public class Renderer extends JComponent {
             elements += element.elementCount();
         }
         return elements;
+    }
+
+    public void setPosZ(double posZ) {
+        this.posZ = posZ;
     }
 
 }

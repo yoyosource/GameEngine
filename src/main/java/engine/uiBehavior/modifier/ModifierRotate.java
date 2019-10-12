@@ -13,12 +13,12 @@ public class ModifierRotate extends Modifier {
     }
 
     @Override
-    public void modify(Graphics2D g) {
-        g.rotate(theta);
+    public void modify(Graphics2D g, double rate) {
+        g.rotate(theta / rate);
     }
 
     @Override
-    public void modifyInvert(Graphics2D g) {
-        g.rotate(-theta);
+    public void modifyInvert(Graphics2D g, double rate) {
+        g.rotate((-theta) / rate);
     }
 }

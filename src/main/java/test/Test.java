@@ -6,6 +6,7 @@ import engine.constraints.Margin;
 import engine.constraints.dimensions.*;
 import engine.constraints.locations.*;
 import engine.ui.Element;
+import engine.ui.components.C3DRectangle;
 import engine.ui.components.CButton;
 import engine.ui.components.CSidebar;
 import engine.ui.components.CSlider;
@@ -14,8 +15,12 @@ import engine.uiBehavior.Action;
 import engine.uiBehavior.actions.*;
 import engine.uiBehavior.events.*;
 import engine.uiBehavior.modifier.ModifierRotateDynamic;
+import engine.uiBehavior.modifier.ModifierTranslate;
+import engine.uiBehavior.modifier.ModifierTranslateCenter;
+import engine.uiBehavior.modifier.ModifierTranslateMovements;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
 
 public class Test {
 
@@ -24,6 +29,7 @@ public class Test {
         gameEngine.setUpdateTime(120);
         gameEngine.setMinSize(Toolkit.getDefaultToolkit().getScreenSize().width / 4 * 3, Toolkit.getDefaultToolkit().getScreenSize().height / 4 * 3);
 
+        /*
         CSidebar sidebar = new CSidebar(10, 10, 10, 0.225);
         EventClick eventHover = new EventClick(true);
         eventHover.addAction(new ActionToggle(new ActionHide()));
@@ -45,7 +51,29 @@ public class Test {
             public void run() {
                 System.out.println(cButton.getValue());
             }
-        });
+        });*/
+
+        gameEngine.addModifier(new ModifierTranslateCenter());
+        gameEngine.addModifier(new ModifierTranslateMovements('w', 's', 'd', 'a', ' ', '\uFFFF'));
+
+        C3DRectangle c3DRectangle1 = new C3DRectangle(new Color(0, 0, 0, 255));
+        Constraint constraint1 = new Constraint();
+        constraint1.setXConstraint(new ConstraintXWidthCenter());
+        constraint1.setYConstraint(new ConstraintYHeightCenter());
+        constraint1.setWidthConstraint(new ConstraintWidthFixed(100));
+        constraint1.setHeightConstraint(new ConstraintHeightFixed(100));
+        c3DRectangle1.setConstraints(constraint1);
+        gameEngine.addElement(c3DRectangle1);
+
+        C3DRectangle c3DRectangle2 = new C3DRectangle(new Color(0, 0, 0, 255));
+        Constraint constraint2 = new Constraint();
+        constraint2.setXConstraint(new ConstraintXWidthCenter());
+        constraint2.setYConstraint(new ConstraintYHeightCenter());
+        constraint2.setWidthConstraint(new ConstraintWidthFixed(100));
+        constraint2.setHeightConstraint(new ConstraintHeightFixed(100));
+        c3DRectangle2.addModifier(new ModifierTranslate(150, 200));
+        c3DRectangle2.setConstraints(constraint2);
+        gameEngine.addElement(c3DRectangle2);
 
         System.out.println(gameEngine.elementCount());
     }

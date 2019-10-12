@@ -14,12 +14,12 @@ public class ModifierTranslate extends Modifier {
     }
 
     @Override
-    public void modify(Graphics2D g) {
-        g.translate(x, y);
+    public void modify(Graphics2D g, double rate) {
+        g.translate(x / rate, y / rate);
     }
 
     @Override
-    public void modifyInvert(Graphics2D g) {
-        g.translate(-x, -y);
+    public void modifyInvert(Graphics2D g, double rate) {
+        g.translate((-x) / rate, (-y) / rate);
     }
 }

@@ -6,19 +6,19 @@ import java.awt.*;
 
 public class Modifier {
 
-    public void modify(Graphics2D g) {
+    public void modify(Graphics2D g, double rate) {
 
     }
 
-    public void modify(Graphics2D g, int width, int height) {
+    public void modify(Graphics2D g, int width, int height, double rate) {
 
     }
 
-    public void modifyInvert(Graphics2D g) {
+    public void modifyInvert(Graphics2D g, double rate) {
 
     }
 
-    public void modifyInvert(Graphics2D g, int width, int height) {
+    public void modifyInvert(Graphics2D g, int width, int height, double rate) {
 
     }
 

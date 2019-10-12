@@ -28,6 +28,9 @@ public class Element {
     private int fade = 0;
     private int maxFade = 0;
     private int fadeTime = 0;
+    private double fov = 1;
+    private double posZ = 1;
+    private double posZChange = 0;
 
     private ElementData elementData = new ElementData();
 
@@ -75,10 +78,10 @@ public class Element {
 
         ElementData elementData = getData(width, height);
         for (Element element : childs) {
-            element.modify(g, elementData.width, elementData.height);
+            element.modify(g, elementData.width, elementData.height, (posZ + posZChange) * fov);
             element.draw(g, elementData.width, elementData.height, elementData.x, elementData.y);
             element.drawChilds(g, elementData.width, elementData.height);
-            element.modifyInvert(g, elementData.width, elementData.height);
+            element.modifyInvert(g, elementData.width, elementData.height, (posZ + posZChange) * fov);
         }
     }
 
@@ -309,10 +312,10 @@ public class Element {
      * @param width
      * @param height
      */
-    public final void modify(Graphics2D g, int width, int height) {
+    public final void modify(Graphics2D g, int width, int height, double rate) {
         for (Modifier modifier : modifiers) {
-            modifier.modify(g);
-            modifier.modify(g, width, height);
+            modifier.modify(g, rate);
+            modifier.modify(g, width, height, rate);
         }
     }
 
@@ -326,10 +329,10 @@ public class Element {
      * @param width
      * @param height
      */
-    public final void modifyInvert(Graphics2D g, int width, int height) {
+    public final void modifyInvert(Graphics2D g, int width, int height, double rate) {
         for (Modifier modifier : modifiers) {
-            modifier.modifyInvert(g);
-            modifier.modifyInvert(g, width, height);
+            modifier.modifyInvert(g, rate);
+            modifier.modifyInvert(g, width, height, rate);
         }
     }
 
@@ -401,7 +404,9 @@ public class Element {
      * @param mouseMotionHandler
      * @param mouseWheel
      */
-    public final void update(KeyHandler keyHandler, MouseHandler mouseHandler, MouseMotionHandler mouseMotionHandler, MouseWheel mouseWheel) {
+    public final void update(KeyHandler keyHandler, MouseHandler mouseHandler, MouseMotionHandler mouseMotionHandler, MouseWheel mouseWheel, double fov, double posZ) {
+        this.fov = fov;
+        this.posZChange = posZ;
         for (Modifier modifier : modifiers) {
             modifier.update(keyHandler);
         }
@@ -439,9 +444,13 @@ public class Element {
         }
         if (!childs.isEmpty()) {
             for (Element element : childs) {
-                element.update(keyHandler, mouseHandler, mouseMotionHandler, mouseWheel);
+                element.update(keyHandler, mouseHandler, mouseMotionHandler, mouseWheel, fov, posZ);
             }
         }
+    }
+
+    public final double getFov() {
+        return fov;
     }
 
     /**
@@ -457,6 +466,18 @@ public class Element {
             count += element.elementCount();
         }
         return count;
+    }
+
+    public final void setPosZ(double posZ) {
+        this.posZ = posZ;
+    }
+
+    public final double getPosZ() {
+        return posZ + posZChange;
+    }
+
+    public final double getPosZRaw() {
+        return posZ;
     }
 
 }
