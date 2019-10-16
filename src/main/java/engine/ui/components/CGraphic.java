@@ -34,6 +34,5 @@ public class CGraphic extends Element {
                 return true;
             }
         });
-        super.draw(g, width, height, xOffset, yOffset);
     }
 }
