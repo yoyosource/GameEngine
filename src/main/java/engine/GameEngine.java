@@ -230,4 +230,9 @@ public class GameEngine implements Runnable {
         }
     }
 
+    public void setIconImage(String s) {
+        URL resource = GameEngine.class.getResource(s);
+        setIconImage(resource);
+    }
+
 }
