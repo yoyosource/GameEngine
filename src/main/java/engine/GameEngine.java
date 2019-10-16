@@ -8,11 +8,15 @@ import engine.uiBehavior.Action;
 import engine.uiBehavior.Modifier;
 import engine.ui.Element;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.net.URL;
 
 public class GameEngine implements Runnable {
 
@@ -215,6 +219,15 @@ public class GameEngine implements Runnable {
 
     public void setGameTickFunction(Action gameTickFunction) {
         this.gameTickFunction = gameTickFunction;
+    }
+
+    public void setIconImage(URL url) {
+        try {
+            BufferedImage image = ImageIO.read(url);
+            frame.setIconImage(image);
+        } catch (IllegalArgumentException | IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

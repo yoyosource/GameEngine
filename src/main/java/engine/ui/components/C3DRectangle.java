@@ -19,11 +19,6 @@ public class C3DRectangle extends Element {
     @Override
     public void draw(Graphics2D g, int width, int height, int xOffset, int yOffset) {
         ElementData elementData = getData(width, height);
-        /*setPosZ(getPosZ() % 10);
-        setPosZ(getPosZ() + 0.001);
-        if (getPosZ() < 1) {
-            setPosZ(1);
-        }*/
 
         setColor(g);
 
