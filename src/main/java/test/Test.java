@@ -2,25 +2,16 @@ package test;
 
 import engine.GameEngine;
 import engine.constraints.Constraint;
-import engine.constraints.Margin;
 import engine.constraints.dimensions.*;
 import engine.constraints.locations.*;
-import engine.ui.Element;
-import engine.ui.components.C3DRectangle;
-import engine.ui.components.CButton;
 import engine.ui.components.CSidebar;
 import engine.ui.components.CSlider;
 import engine.ui.elements.ERectangle;
 import engine.uiBehavior.Action;
 import engine.uiBehavior.actions.*;
 import engine.uiBehavior.events.*;
-import engine.uiBehavior.modifier.ModifierRotateDynamic;
-import engine.uiBehavior.modifier.ModifierTranslate;
-import engine.uiBehavior.modifier.ModifierTranslateCenter;
-import engine.uiBehavior.modifier.ModifierTranslateMovements;
 
 import java.awt.*;
-import java.awt.event.KeyEvent;
 
 public class Test {
 
@@ -29,7 +20,6 @@ public class Test {
         gameEngine.setUpdateTime(120);
         gameEngine.setMinSize(Toolkit.getDefaultToolkit().getScreenSize().width / 4 * 3, Toolkit.getDefaultToolkit().getScreenSize().height / 4 * 3);
 
-        /*
         CSidebar sidebar = new CSidebar(10, 10, 10, 0.225);
         EventClick eventHover = new EventClick(true);
         eventHover.addAction(new ActionToggle(new ActionHide()));
@@ -44,15 +34,22 @@ public class Test {
             }
         });
 
+        /*
         CButton cButton = new CButton(new Color(200, 200, 200, 255), new Constraint(new ConstraintWidthPercent(0.5), new ConstraintHeightPercent(0.5), new ConstraintXCenter(), new ConstraintYCenter()));
         sidebar.addChild(cButton);
-        cButton.addChangeAction(new Action(){
-            @Override
-            public void run() {
-                System.out.println(cButton.getValue());
-            }
-        });*/
+        */
 
+        ERectangle eRectangle = new ERectangle(new Color(120, 0, 255, 255), true);
+        eRectangle.setConstraints(new Constraint(new ConstraintWidthPercent(0.5), new ConstraintHeightRatio(0.5), new ConstraintXCenter(), new ConstraintYCenter()));
+        EventClick eventClick = new EventClick();
+        eventClick.runWhenHidden();
+        eventClick.addAction(new ActionToggle(new ActionAlphaFade(0, 100)));
+        eventClick.addAction(new ActionToggle(new ActionMove()));
+        eRectangle.addEvent(eventClick);
+
+        sidebar.addChild(eRectangle);
+
+        /*
         gameEngine.addModifier(new ModifierTranslateCenter());
         gameEngine.addModifier(new ModifierTranslateMovements('w', 's', 'd', 'a', ' ', '\uFFFF'));
 
@@ -74,6 +71,7 @@ public class Test {
         c3DRectangle2.addModifier(new ModifierTranslate(150, 200));
         c3DRectangle2.setConstraints(constraint2);
         gameEngine.addElement(c3DRectangle2);
+        */
 
         System.out.println(gameEngine.elementCount());
     }

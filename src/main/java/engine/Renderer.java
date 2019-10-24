@@ -64,16 +64,16 @@ public class Renderer extends JComponent {
                 if (modifier instanceof ModifierTranslateMovements) {
                     posZ = ((ModifierTranslateMovements)modifier).getPosZ();
                 }
-                modifier.modify(g, 1);
-                modifier.modify(g, getWidth(), getHeight(), 1);
+                modifier.modify(g);
+                modifier.modify(g, getWidth(), getHeight());
             }
         }
 
         for (Element element : elementList) {
-            element.modify(g, getWidth(), getHeight(), (element.getPosZ() + posZ) * fov);
+            element.modify(g, getWidth(), getHeight());
             element.draw(g, getWidth(), getHeight(), 0, 0);
             element.drawChilds(g, getWidth(), getHeight());
-            element.modifyInvert(g, getWidth(), getHeight(), (element.getPosZ() + posZ) * fov);
+            element.modifyInvert(g, getWidth(), getHeight());
         }
     }
 
@@ -85,7 +85,7 @@ public class Renderer extends JComponent {
         }
         if (!elementList.isEmpty()) {
             for (Element element : elementList) {
-                element.update(keyHandler, mouseHandler, mouseMotionHandler, mouseWheel, fov, posZ);
+                element.update(keyHandler, mouseHandler, mouseMotionHandler, mouseWheel);
             }
         }
     }
